@@ -24,6 +24,7 @@ val sizeFactor : Float = 2.9f
 val parts : Int = 3
 val deg : Float = 90f
 val scGap : Float = 0.02f / parts
+val backColor : Int = Color.parseColor("#BDBDBD")
 
 
 fun Int.inverse() : Float = 1f / this
@@ -181,6 +182,29 @@ class VFillArcView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : VFillArcView) {
+
+        private val animator : Animator = Animator(view)
+        private val vFillArc : VFillArc = VFillArc(0)
+        private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        fun render(canvas : Canvas) {
+            canvas.drawColor(backColor)
+            vFillArc.draw(canvas, paint)
+            animator.animate {
+                vFillArc.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            vFillArc.startUpdating {
+                animator.start()
+            }
         }
     }
 }
