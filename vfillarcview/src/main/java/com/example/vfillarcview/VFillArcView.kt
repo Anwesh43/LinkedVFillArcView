@@ -209,4 +209,13 @@ class VFillArcView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : VFillArcView {
+            val view : VFillArcView = VFillArcView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
