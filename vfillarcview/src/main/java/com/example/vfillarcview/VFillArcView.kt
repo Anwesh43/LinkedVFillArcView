@@ -37,11 +37,13 @@ fun Canvas.drawVFillArc(scale : Float, w  : Float, h : Float, paint : Paint) {
     val sf : Float = scale.sinify()
     val sf1 : Float = sf.divideScale(0, parts)
     val sf2 : Float = sf.divideScale(1, parts)
+    val sf3 : Float = sf.divideScale(2, parts)
     save()
     translate(w / 2, h / 2)
+    rotate(deg * 2 * sf3)
     for (j in 0..1) {
         save()
-        rotate((deg / 2) * (1f - 2 * j))
+        rotate(-(deg / 2) * (1f - 2 * j))
         drawLine(0f, 0f, size * sf1 * (1f - 2 * j), 0f, paint)
         restore()
     }
